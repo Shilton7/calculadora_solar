@@ -45,7 +45,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
     left:0;
     width:100%;
     height:100%;
-    /* background: url(../img/nuvens.png) #008acb fixed top center no-repeat; */
+    /* background: url(../assets/nuvens.png) #008acb fixed top center no-repeat; */
     background-size: auto;
 }
 .luzes {
@@ -54,7 +54,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
     left:0;
     width:100%;
     height:65%;
-    /* background: url(../img/luz.png) fixed center center no-repeat; */
+    /* background: url(../assets/luz.png) fixed center center no-repeat; */
     background-size: auto 100%;
 
 }
@@ -96,7 +96,7 @@ textarea:focus, input:focus, select:focus, button:focus  {
     left:0;
     width:100%;
     height:35%;
-    background: 'url(../img/luz.png+) #ffbc00 fixed center center no-repeat';
+    /* background: url(../assets/luz.png+) #ffbc00 fixed center center no-repeat; */
     background-size: auto 100%;
 }
 .laranja img {
@@ -131,7 +131,7 @@ select#cidades {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    /* background: url(../img/select.png) no-repeat #ffffff; */
+    /* background: url(../assets/select.png) no-repeat #ffffff; */
     background-position: center right;
     padding: 15px 60px 15px 30px !important;
     border:2px solid #ffffff;
@@ -142,7 +142,7 @@ select#cidades {
     max-width: 100%;
 }
 select#cidades:hover {
-    /* background: url(../img/select.png) no-repeat #45b9e4; */
+    /* background: url(../assets/select.png) no-repeat #45b9e4; */
     background-position: center right;
     color: #ffffff;
     transition: 0.3s all;

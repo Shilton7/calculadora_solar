@@ -1,6 +1,55 @@
 <template>
   <div class="container">
 
+
+<div class="col-md-4" v-if="resultado == 'S'">
+
+    <h2>
+
+        <span class="label label-primary"><strong>Estado: </strong> {{this.estado}}</span> <br>
+        <span class="label label-primary"><strong>Cidade: </strong> {{this.cidade}}</span> <br>
+        <span class="label label-primary"><strong>Valor da conta de luz:</strong> R$ {{this.valContaLuz}}</span> <br>
+        <span class="label label-primary"><strong>Consumo: </strong> {{this.valConsumo}}</span> <br>
+        <span class="label label-primary"><strong>Local instalação: </strong> {{this.localInstal}}</span><br>
+        <span class="label label-primary"><strong>Valor incidência: </strong> {{this.valIndicendiaSolar}}</span> <br>
+        <span class="label label-primary"><strong>Valor Eficiência da Placa: </strong> {{this.valEficienciaPlaca}}</span>
+        <span class="label label-primary"><strong>Quantidade Placas: </strong> {{calculoQuantPlacas()}}</span> <br>
+
+    </h2>
+</div>
+
+    <!-- Pagina inicial -->
+	<div class="pagina-total center-block" v-if="formInicial == 'S'">
+
+		<div class="container-fluid azul center-block"></div>
+		<div class="luzes container-fluid center-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2 principal">
+						<div class="paineis center-block">
+							<h1 class="text-center titulo-real">Quanto você ganha <br/>investindo em energia solar?</h1>
+							<div class="text-center">
+								<a id="quero-saber" @click.prevent="avancar()" class="btn btn-lg btn-secondary botao-real">Quero Saber!</a>
+							</div>
+							<img class="img-responsive center-block" src="../assets/painel.png" alt="Real Solar">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid laranja center-block">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+						<img class="img-responsive center-block" src="../assets/logo-real.png" alt="">
+						<p class="text-center info-real">Atenção: Tenha sua conta de energia em mãos.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- // FIM da Pagina inicial -->
+
 <!-- Localizacao -->
 <div class="pagina-total center-block" v-if="formCidade == 'S'">
 <div class="container-fluid center-block cidade">
@@ -21,7 +70,7 @@
 							<option value="rio-bonito">Rio Bonito</option>
 							<option value="casimiro-de-abreu">Casimiro de Abreu</option>
 						</select>
-						<div class="text-center" id="incidencia" style="display:none;">
+						<div class="text-center" id="incidencia" v-if="cidade">
 							Incidência Solar ALTA - 4.22 KwH/m²<br/>
 							<img class="img-responsive center-block" src="../assets/incidencia.png" alt="Força do Sol">
 							<a href="valor.html">
@@ -45,7 +94,7 @@
 					<h3 class="text-center sub-real">Faça uma média dos últimos 5 meses.</h3>
 					<div class="text-center selecao-valor">
 						<input v-model="valContaLuz" id="valor-conta" type="text" placeholder="R$ Apenas Números">
-						<div class="text-center" id="valor-input" style="display:none;">
+						<div class="text-center" id="valor-input" v-if="valContaLuz">
 							<a href="consumo.html">
                 <button v-if="valContaLuz" @click.prevent="avancar2()" class="botao-avanco">Continuar</button>
               </a>
@@ -68,7 +117,7 @@
 					<h3 class="text-center sub-real">Veja na sua conta de luz. Média dos últimos 5 meses.</h3>
 					<div class="text-center selecao-consumo">
 						<input v-model="valConsumo" id="consumo-conta" type="text" placeholder="kWh Apenas Números">
-						<div class="text-center" id="consumo-input" style="display:none;">
+						<div class="text-center" id="consumo-input" v-if="valConsumo">
 							<a href="aplicacao.html">
                 <button v-if="valConsumo" @click.prevent="avancar3()" class="botao-avanco">Continuar</button>
                 </a>
@@ -130,7 +179,7 @@
 
 					<div class="text-center selecao-consumo">
 						<div class="text-center">
-							<a id="quero-saber" href="resultado.html" class="btn btn-lg btn-secondary botao-real">Calcular</a>
+							<a id="quero-saber" @click.prevent="calcular()" class="btn btn-lg btn-secondary botao-real">Calcular</a>
 						</div>
 
 						</div>
@@ -150,8 +199,8 @@ export default {
   name: 'CalculadoraJr',
   data () {
     return {
-      // inicial: 'S',
-      formCidade: 'S',
+      formInicial: 'S',
+      formCidade: 'N',
       formConsumo: 'N',
       formValConta: 'N',
       formLocalInstal: 'N',
@@ -177,15 +226,15 @@ export default {
       area_placa: '2.5',
       valAreaOcupada: null,
       pesoPlaca: '32.5',
-      valPesoEstrutura: null
-
+      valPesoEstrutura: null,
+      resultado: 'N'
     }
   },
   methods: {
-    // avancar () {
-    //   this.inicial = 'N'
-    //   this.formCidade = 'S'
-    // },
+    avancar () {
+      this.formInicial = 'N'
+      this.formCidade = 'S'
+    },
     avancar1 () {
       this.formCidade = 'N'
       this.formValConta = 'S'
@@ -208,6 +257,8 @@ export default {
       this.formLocalInstal = 'N'
       this.tbl_resultado = 'S'
       this.inicial = 'N'
+      this.resultado = 'S'
+      this.calculoPotenciaMinima()
     },
     reset () {
       this.formCidade = 'S'
@@ -228,6 +279,10 @@ export default {
     },
     calculoQuantPlacas () {
       let $valor = (this.potencia_min / (this.valPotenciaPlaca / 1000))
+      console.log(this.potencia_min)
+      console.log(this.valPotenciaPlaca)
+      console.log((this.valPotenciaPlaca / 1000))
+      console.log($valor)
       this.quant_placas = parseFloat(Math.round($valor.toFixed(2)))
       return this.quant_placas
     },
