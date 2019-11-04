@@ -4,9 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>calculadora</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+          $(document).ready(function () {
+
+      function showIncidencia() {
+        $('#cidades').change(function (event) {
+          $('#incidencia').show();
+        });
+      }
+      showIncidencia()
+
+      function clicaValor() {
+        $('#valor-conta').keyup(function (event) {
+          $('#valor-input').show();
+        });
+      }
+      clicaValor()
+
+      function clicaConsumo() {
+        $('#consumo-conta').keyup(function (event) {
+          $('#consumo-input').show();
+        });
+      }
+      clicaConsumo()
+
+    });
+
+    </script>
+
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>
+
