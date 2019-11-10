@@ -280,6 +280,21 @@ transform: translateY(-50%);
     text-shadow: none;
     font-size: 1.6em;
 }
+
+.resultado {
+    top:0;
+    left:0;
+    width:100%;
+    min-height: 1280px;
+    background: #ffa000;
+}
+
+.principal-resultados {
+    position: relative;
+    top: 100px;
+
+}
+
 /* =//======== FIM da Página Aplicação ======== */
 /* =//======== FIM da Página Aplicação ======== */
 /* =//======== FIM da Página Aplicação ======== */

@@ -1,21 +1,45 @@
 <template>
   <div class="container">
+<div class="col-md-12" v-if="resultado == 'S'">
+  <div class="pagina-total center-block">
+	<div class="container-fluid center-block resultado">
+		<div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 principal-resultados">
 
+				<div class="paineis-resultados center-block">
+					<h1 class="text-center titulo-real">Pronto! Veja o seu gerador solar!</h1><br>
 
-<div class="col-md-4" v-if="resultado == 'S'">
+					<div class="col-sm-6 text-center">
+						<h1>Imagem e logo</h1>
+					</div>
+					<div class="col-sm-6">
+						<h2>
 
-    <h2>
-
-        <span class="label label-primary"><strong>Estado: </strong> {{this.estado}}</span> <br>
-        <span class="label label-primary"><strong>Cidade: </strong> {{this.cidade}}</span> <br>
-        <span class="label label-primary"><strong>Valor da conta de luz:</strong> R$ {{this.valContaLuz}}</span> <br>
-        <span class="label label-primary"><strong>Consumo: </strong> {{this.valConsumo}}</span> <br>
-        <span class="label label-primary"><strong>Local instalação: </strong> {{this.localInstal}}</span><br>
-        <span class="label label-primary"><strong>Valor incidência: </strong> {{this.valIndicendiaSolar}}</span> <br>
-        <span class="label label-primary"><strong>Valor Eficiência da Placa: </strong> {{this.valEficienciaPlaca}}</span>
-        <span class="label label-primary"><strong>Quantidade Placas: </strong> {{calculoQuantPlacas()}}</span> <br>
+        <span class="label label-default"><strong>Estado: </strong> {{this.estado}}</span> <br>
+        <span class="label label-default"><strong>Cidade: </strong> {{this.cidade}}</span> <br>
+        <span class="label label-default"><strong>Valor da conta de luz:</strong> R$ {{this.valContaLuz}}</span> <br>
+        <span class="label label-default"><strong>Consumo: </strong> {{this.valConsumo}}</span> <br>
+        <span class="label label-default"><strong>Local instalação: </strong> {{this.localInstal}}</span><br>
+        <span class="label label-default"><strong>Valor incidência: </strong> {{this.valIndicendiaSolar}}</span> <br>
+        <span class="label label-default"><strong>Valor Eficiência da Placa: </strong> {{this.valEficienciaPlaca}}</span>
+        <span class="label label-default"><strong>Quantidade Placas: </strong> {{calculoQuantPlacas()}}</span> <br>
 
     </h2>
+					</div>
+					<div class="text-center selecao-consumo">
+						<div class="text-center">
+							<a id="quero-saber" @click.prevent="reset()" href="#." class="btn btn-lg btn-secondary botao-real">Fazer novo cálculo</a>
+						</div>
+						<div class="text-center">
+							<a id="ir-modal" href="#" class="btn btn-lg btn-secondary botao-real">Enviar mensagem</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </div>
 
     <!-- Pagina inicial -->
@@ -204,7 +228,6 @@ export default {
       formConsumo: 'N',
       formValConta: 'N',
       formLocalInstal: 'N',
-      tbl_resultado: 'S',
       estado: 'Rio de Janeiro',
       cidade: null,
       valContaLuz: null,
@@ -238,35 +261,34 @@ export default {
     avancar1 () {
       this.formCidade = 'N'
       this.formValConta = 'S'
-      this.inicial = 'N'
+      this.formInicial = 'N'
     },
     avancar2 () {
       this.formValConta = 'N'
       this.formConsumo = 'S'
-      this.inicial = 'N'
+      this.formInicial = 'N'
     },
     avancar3 () {
       this.formConsumo = 'N'
       this.formLocalInstal = 'S'
-      this.inicial = 'N'
+      this.formInicial = 'N'
     },
     calcular () {
       this.formCidade = 'N'
       this.formConsumo = 'N'
       this.formValConta = 'N'
       this.formLocalInstal = 'N'
-      this.tbl_resultado = 'S'
-      this.inicial = 'N'
+      this.formInicial = 'N'
       this.resultado = 'S'
       this.calculoPotenciaMinima()
     },
     reset () {
-      this.formCidade = 'S'
+      this.formInicial = 'S'
+      this.formCidade = 'N'
       this.formConsumo = 'N'
       this.formValConta = 'N'
       this.formLocalInstal = 'N'
-      this.tbl_resultado = 'N'
-      this.inicial = 'S'
+      this.resultado = 'N'
       this.cidade = null
       this.valContaLuz = null
       this.valConsumo = null
@@ -279,10 +301,6 @@ export default {
     },
     calculoQuantPlacas () {
       let $valor = (this.potencia_min / (this.valPotenciaPlaca / 1000))
-      console.log(this.potencia_min)
-      console.log(this.valPotenciaPlaca)
-      console.log((this.valPotenciaPlaca / 1000))
-      console.log($valor)
       this.quant_placas = parseFloat(Math.round($valor.toFixed(2)))
       return this.quant_placas
     },
